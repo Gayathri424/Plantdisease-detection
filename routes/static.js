@@ -15,7 +15,7 @@ router.get('/signup',(req,res)=>{
   })
   
 router.get('/login',(req,res)=>{
-    res.render('login');
+    res.render('login',{ errorMessage: null });
   })
 router.get('/logout',(req,res)=>{
   res.clearCookie('uid'); // Clear the authentication token cookie
@@ -28,6 +28,7 @@ router.get('/upload',(req,res)=>{
 router.get('/history',(req,res)=>{
   res.render('history');
 })
+
 
 router.get('/admin/history',restrictto(["admin"]),async (req,res)=>{
     const histories= await uploads.find().lean();

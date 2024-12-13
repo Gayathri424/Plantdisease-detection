@@ -12,7 +12,8 @@ router.post('/signup', async (req, res) => {
       // Check if the email already exists
       const existingUser = await User.findOne({ email});
       if (existingUser) {
-          return res.status(400).json({ message: "Email already in use. Please use a different email." });
+          return res.redirect('/login');
+
       }
 
       let hashedPassword = null;
@@ -56,6 +57,8 @@ router.post('/login',async (req,res)=>{
       if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid password' });
       }
+
+      
  
       const token=setUser(user);
       console.log('Setting cookie...')

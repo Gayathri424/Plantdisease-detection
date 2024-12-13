@@ -36,8 +36,11 @@
           <input type="password" placeholder="Password" required name="password" />
           <i class="bi bi-lock"></i>
         </div>
+        <% if (errorMessage) { %>
+          <p style="color: red;"><%= errorMessage %></p>
+        <% } %>
         <button class="submit-btn" type="submit">Log In</button>
-        <div class="forgot"><a href="forgot.html">Forgot Password?</a></div>
+        
         <div class="divider"><span>Or</span></div>
         <div class="signup-link">
           <p>Don't have an account? <a href="/signup">Sign Up</a></p>

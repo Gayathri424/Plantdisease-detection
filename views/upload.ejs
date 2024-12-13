@@ -75,6 +75,7 @@
         const imageInput = document.getElementById('imageInput');
         const resultDiv = document.getElementById('result');
         const warningDiv = document.getElementById('warning'); 
+    
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent the form from submitting normally
@@ -83,11 +84,14 @@
             formData.append('image', imageInput.files[0]);
             console.log(formData.get('image')); 
 
+
             try {
                 const response = await fetch('/upload', {
                     method: 'POST',
                     body: formData,
                 });
+
+                
                 console.log(response);
                 if (response.ok) {
                     const data = await response.json();
@@ -95,7 +99,7 @@
                     const { description, possibleSteps, imageUrl, supplements } = diseaseDetails;
 
                 if (warning.length > 0) {
-                warningDiv.innerHTML = warning.map(w => `<p class="text-warning">${w}</p>`).join('');
+                warningDiv.innerHTML = warning.map(w => `<h2 class="text-warning" color:red>${w}</h2>`).join('');
                 } else {
                 warningDiv.innerHTML = '<p>No warnings.</p>';
                 }
@@ -106,9 +110,9 @@
                         <p><strong>Disease:</strong> ${label}</p><br>
                         <p><strong>Confidence:</strong> ${(score * 100).toFixed(2)}%</p><br>
                         <p><strong>Description:</strong> ${description || 'No description available.'}</p><br>
-                        <p><strong>Possible Steps:</strong> ${possibleSteps || 'No steps provided.'}</p>
+                        <p><strong>Prevention Steps:</strong> ${possibleSteps || 'No steps provided.'}</p><br>
                         <img src="${imageUrl}" alt="${label}" style="max-width: 50%; margin-top: 10px;" onerror="this.style.display='none';">
-                        <button id="speakButton" class="btn btn-primary">Speak Result</button>
+                        
                         
                         <h4>Supplements</h4>
                         <ul>
@@ -131,7 +135,7 @@
                 }
             } catch (error) {
                 console.log('Error during diagnosis:', error);
-                resultDiv.innerHTML = '<p class="text-danger">Error: Something went wrong with the diagnosis.</p>';
+                resultDiv.innerHTML = '<p class="text-danger">Error: Please check your Network onnection</p>';
             }
         });
     </script>
